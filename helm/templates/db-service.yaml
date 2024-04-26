@@ -1,0 +1,13 @@
+{{- if eq .Values.target "local" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-svc  
+spec:
+  selector:
+    app: {{ .Release.Name }}-db
+  type: ClusterIP
+  ports:
+    - port: 3306
+      targetPort: 3306
+{{- end }}

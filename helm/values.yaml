@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: jcroyoaun/snippetbox
+  tag: 1.2
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 4000
+
+ingress:
+  enabled: true
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+  path: /
+  pathType: Prefix
+
+secrets:
+  databaseUser: ""
+  databasePassword: ""
+
+configmap:
+  databaseHost: ""
+  databaseName: snippetbox
+
+target: eks
+
+dbImage:
+  repository: jcroyoaun/snippetbox-db
+  tag: 1.0
